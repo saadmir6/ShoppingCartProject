@@ -1,4 +1,4 @@
-import { createContext, ReactElement, useState } from "react"
+import { createContext, ReactElement, useState, useEffect } from "react"
 
 export type ProductType = {
     sku : string,
@@ -6,23 +6,25 @@ export type ProductType = {
     price : number,
 }
 
-const initState : ProductType[] = [
-    {
-        "sku" : "item001",
-        "name" : "Widget",
-        "price" : 9.99
-    },
-    {
-        "sku" : "item002",
-        "name" : "Premium Widget",
-        "price" : 19.99
-    },
-    {
-        "sku" : "item003",
-        "name" : "Delux Widget",
-        "price" : 29.99
-    }
-]
+const initState : ProductType[] = [] // start out as an empty array for dynamically fetching the data
+
+// const initState : ProductType[] = [        // hardcoded example
+//     {
+//         "sku" : "item001",
+//         "name" : "Widget",
+//         "price" : 9.99
+//     },
+//     {
+//         "sku" : "item002",
+//         "name" : "Premium Widget",
+//         "price" : 19.99
+//     },
+//     {
+//         "sku" : "item003",
+//         "name" : "Delux Widget",
+//         "price" : 29.99
+//     }
+// ]
 
 export type UseProductsContextType = { products: ProductType[] }
 
@@ -35,9 +37,25 @@ type ChildrenType = { children?: ReactElement | ReactElement[] }
 export const ProductsProvider = ({ children }: ChildrenType): ReactElement => {
     const [ products, setProducts] = useState<ProductType[]>(initState)
 
+    useEffect(() => {
+        const fetchProducts = async(): Promise<ProductType[]> => {
+            const data = await fetch('http://localhost:3500/products').then( res => {
+                return res.json()
+            }).catch(err =>{
+                if ( err instanceof Error ) console.log(err.message)
+            })
+            return data
+        }
+
+        fetchProducts().then( products => setProducts(products) )
+
+    }, []) // the empty dependancy array is given because the products need to load once
+
     return(
         <ProductsContext.Provider value={{products}}>
             {children}
         </ProductsContext.Provider>
     )
 }
+
+export default ProductsContext
