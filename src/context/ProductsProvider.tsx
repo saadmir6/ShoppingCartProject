@@ -6,25 +6,25 @@ export type ProductType = {
     price : number,
 }
 
-const initState : ProductType[] = [] // start out as an empty array for dynamically fetching the data
+// const initState : ProductType[] = [] // start out as an empty array for dynamically fetching the data
 
-// const initState : ProductType[] = [        // hardcoded example
-//     {
-//         "sku" : "item001",
-//         "name" : "Widget",
-//         "price" : 9.99
-//     },
-//     {
-//         "sku" : "item002",
-//         "name" : "Premium Widget",
-//         "price" : 19.99
-//     },
-//     {
-//         "sku" : "item003",
-//         "name" : "Delux Widget",
-//         "price" : 29.99
-//     }
-// ]
+const initState : ProductType[] = [        // hardcoded example
+    {
+        "sku" : "item001",
+        "name" : "Widget",
+        "price" : 9.99
+    },
+    {
+        "sku" : "item002",
+        "name" : "Premium Widget",
+        "price" : 19.99
+    },
+    {
+        "sku" : "item003",
+        "name" : "Delux Widget",
+        "price" : 29.99
+    }
+]
 
 export type UseProductsContextType = { products: ProductType[] }
 
