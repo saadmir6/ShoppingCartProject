@@ -13,7 +13,7 @@ const initCartState : CartStateType = { cart: [] }   // This time its a value no
 
 const REDUCER_ACTION_TYPE = {
     ADD : "ADD", 
-    REDUCE : "REDUCE",
+    REMOVE : "REMOVE",
     QUANTITY : "QUANTITY",
     SUBMIT : "SUBMIT",
 }
@@ -42,7 +42,7 @@ CartStateType => {  // it returns
 
             return { ...state, cart: [ ... filteredCart, { sku, price, name, qty }] }
         }
-        case REDUCER_ACTION_TYPE.REDUCE: {
+        case REDUCER_ACTION_TYPE.REMOVE: {
 
             if (!action.payload) {
                 throw new Error("action.payload missing in REMOVE action")
