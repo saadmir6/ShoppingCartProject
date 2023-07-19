@@ -28,7 +28,7 @@ const Product = ({ product, dispatch, REDUCER_ACTIONS, inCart} : PropsType): Rea
             <h3>
                 {product.name}
             </h3>
-            <img src={img} alt={product.name} className="product_img" />
+            <img src={img} alt={product.name} className="product__img" />
             <p>
                 {new Intl.NumberFormat('en-US' , {style : 'currency', currency : 'USD'}).format(product.price)}{ItemInCart}
             </p>
